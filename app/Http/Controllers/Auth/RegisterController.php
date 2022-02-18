@@ -5,15 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Jobs\VerifyEmailJob;
-use App\Mails\EmailNotificationMail;
-use App\Models\VerifyUser;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Str;
-use Ramsey\Uuid\Rfc4122\UuidV4;
-use Ramsey\Uuid\Uuid;
-
 
 class RegisterController extends Controller
 {

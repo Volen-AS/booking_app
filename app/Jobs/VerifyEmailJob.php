@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Mails\EmailNotificationMail;
 use App\Models\User;
-use http\Url;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Mail;
