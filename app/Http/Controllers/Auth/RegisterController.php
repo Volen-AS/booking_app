@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRegistrationRequest;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -42,32 +41,23 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * @param  \App\Http\Requests\UserRegistrationRequest  $request
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return mixed
      */
-    protected function validator(array $data)
+    public function register(UserRegistrationRequest $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+        $user = new User();
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user->first_name = ucfirst($request->get('first_name'));
+        $user->middle_name = ucfirst($request->get('middle_name'));
+        $user->last_name = ucfirst($request->get('last_name'));
+        $user->birth_date = $request->get('birth_date');
+        $user->phone = $request->get('phone');
+        $user->email = $request->get('email');
+
+        $user->save();
+
+        return redirect()->route('home');
     }
 }
