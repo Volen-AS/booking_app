@@ -14,8 +14,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        //TODO: trans('') for message when will implement multilanguage
         if (! $request->expectsJson()) {
-            return route('login');
+            return redirect()->route('welcome')
+                ->with('failure', "Please pass authorization");
         }
     }
 }
